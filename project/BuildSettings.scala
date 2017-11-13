@@ -4,7 +4,7 @@ import sbt._
 
 import scala.language.{higherKinds, implicitConversions, postfixOps}
 
-trait BuildSettings { self: Versions =>
+trait BuildSettings { self: Versions ⇒
   final protected def buildSettings: Seq[Setting[_]] = Defaults.coreDefaultSettings ++ Seq(
     organization  := "com.autotrack",
     version       := appVer,
