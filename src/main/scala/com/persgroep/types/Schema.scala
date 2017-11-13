@@ -17,11 +17,10 @@ trait Properties {
 trait Persons { self: Properties ⇒
   protected type PersonProp[A] = Property[PersonMeta, Person, A]
   protected type MakeChange[A] = A ⇒ Change[A]
-  protected type Comparison[A] = Property[PersonMeta, Person, A]
   protected type StoreChange[A] = State[List[Change[_]], A]
 
-  protected def personName: Comparison[String] = Property[PersonMeta, Person, String](PersonName(), _.name)
-  protected def personAge: Comparison[Int]  = Property[PersonMeta, Person, Int](PersonAge(), _.age)
+  protected def personName: Free[PersonProp, String] = Property[PersonMeta, Person, String](PersonName(), _.name)
+  protected def personAge: Free[PersonProp, Int]  = Property[PersonMeta, Person, Int](PersonAge(), _.age)
 
 
   final protected def propToChange = new (PersonMeta ~> MakeChange) {
