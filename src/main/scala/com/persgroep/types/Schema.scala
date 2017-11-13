@@ -40,8 +40,8 @@ trait Persons { self: Properties ⇒
       }
     }
 
-  final protected def run(comparison: Free[({type λ[α] = Property[PersonMeta, Person, α]})#λ, Unit])(src: Person, tgt: Person) =
-    comparison.foldMap[({type λ[α] = State[List[Change[_]], α]})#λ](propsToChange(src, tgt)).run(List.empty)._1
+  final protected def run(comparison: Free[PersonProp, Unit])(src: Person, tgt: Person) =
+    comparison.foldMap[StoreChange](propsToChange(src, tgt)).run(List.empty)._1
 
 }
 
